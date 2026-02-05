@@ -1,1 +1,11 @@
 @import 'tailwindcss';
+
+@theme {
+    /* ---------- FONTS ---------- */
+    --font-orbitron: 'Orbitron', sans-serif;
+    --font-rajdhani: 'Rajdhani', sans-serif;
+
+    /* ---------- ANIMATIONS ---------- */
+    --animate-spin-slow: spin 60s linear infinite;
+    --animate-pulse-slow: pulse 20s linear infinite;
+}
