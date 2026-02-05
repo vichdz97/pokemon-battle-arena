@@ -4,13 +4,14 @@ interface ButtonProps {
   text: string;
   color?: Colors;
   size?: Sizes;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
-type Colors = 'blue' | 'red' | 'black';
+type Colors = 'default' | 'blue' | 'red' | 'black';
 type Sizes = 'md' | 'lg';
 
 const colorStyles: Record<Colors, string> = {
+  default: 'bg-slate-500',
   blue: 'bg-blue-600',
   red: 'bg-red-600',
   black: 'bg-slate-950'
@@ -21,11 +22,11 @@ const sizeStyles: Record<Sizes, string> = {
   lg: 'py-4 px-6 hover:scale-[1.1]'
 };
 
-export default function Button({ text, color = 'black', size = 'md', onClick }: ButtonProps) {
+export default function Button({ text, color = 'default', size = 'md', onClick }: ButtonProps) {
     return (
       <button
         className={clsx(
-          'relative overflow-hidden w-full text-xl border border-slate-900 shadow rounded-2xl transition-transform duration-400',
+          'relative overflow-hidden w-full text-xl border border-slate-900 shadow rounded-2xl transition-all duration-400',
           colorStyles[color],
           sizeStyles[size]
         )}
