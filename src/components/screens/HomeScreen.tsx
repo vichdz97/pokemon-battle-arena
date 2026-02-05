@@ -31,7 +31,7 @@ export default function HomeScreen() {
 			{/* BUTTONS */}
 			<div className='flex flex-col gap-4 min-w-2xs z-10'>
 				<Button text='Start' color='blue' size='lg' onClick={() => navigate('/select')} />
-				<Button text='How to Play' color='red' size='lg' onClick={() => setShowInstructions(true)} />
+				<Button text='How to Play' size='lg' onClick={() => setShowInstructions(true)} />
 			</div>
 
 			{/* POKÉBALL DECOR */}
