@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Pokemon } from "../../interfaces/pokemon";
 import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
@@ -10,9 +10,12 @@ import {
 	URL 
 } from "../../utils/constants";
 import LoadingSpinner from "../common/LoadingSpinner";
+import { GameContext } from "../../context/GameContext";
 
 export default function SelectScreen() {
 	const navigate = useNavigate();
+	const { setPlayer, setCPU } = useContext(GameContext);
+
 	const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
 	const [hoveredPlayerPokemon, setHoveredPlayerPokemon] = useState<Pokemon | null>(null);
 	const [playerPokemon, setPlayerPokemon] = useState<Pokemon | null>(null);
@@ -27,7 +30,6 @@ export default function SelectScreen() {
 					POKEMON_ROSTER.sort((a, b) => a - b).map(async (id) => {
 						const response = await fetch(`${URL}/pokemon/${id}`);
 						const data = await response.json();
-						console.log(data);
 						return {
 							id: data.id,
 							name: data.name,
@@ -86,6 +88,12 @@ export default function SelectScreen() {
 		}
 	}
 
+	const startBattle = () => {
+		setPlayer(playerPokemon);
+		setCPU(cpuPokemon);
+		navigate('/battle');
+	}
+
 	if (allPokemon.length === 0) {
 		return <LoadingSpinner />;
 	}
@@ -127,7 +135,7 @@ export default function SelectScreen() {
 				}
 			</div>
 
-			<div className='absolute top-78 flex flex-col items-center gap-2'>
+			<div className='absolute bottom-5 flex flex-col items-center gap-2'>
 				{/* POKÉMON GRID */}
 				<div className='grid grid-cols-12 gap-1'>
 					{allPokemon.map((pokemon) => (
@@ -160,13 +168,12 @@ export default function SelectScreen() {
 				<div className='flex items-center justify-center gap-4'>
 					<Button text='← Back' onClick={() => navigate(-1)} />
 					{playerPokemon && cpuPokemon ? 
-						<Button text='Battle!' color='blue' onClick={() => navigate('/battle')} />
+						<Button text='Battle!' color='blue' onClick={startBattle} />
 						:
 						<Button text='Battle!' color='black' />
 					}
 				</div>
 			</div>
-
 		</div>
 	);
 }
