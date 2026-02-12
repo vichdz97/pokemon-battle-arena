@@ -11,7 +11,7 @@ interface PokeboxProps {
 export default function Pokebox({ pokemon, isPlayer, className }: PokeboxProps) {
   return (
     <div className={clsx(
-      'z-10 w-2/3 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-slate-950/50 via-indigo-950/50 to-slate-950/50 backdrop-blur-lg shadow-lg rounded-2xl px-4 py-3',
+      'z-10 min-w-sm w-2/3 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-slate-950/50 via-indigo-950/50 to-slate-950/50 backdrop-blur-lg shadow-lg rounded-2xl px-4 py-3',
       className
     )}>
       <div className='w-full h-full flex items-baseline justify-between'>
@@ -20,7 +20,7 @@ export default function Pokebox({ pokemon, isPlayer, className }: PokeboxProps) 
           {pokemon.types.map(type => (
             <span 
               key={`${pokemon.name}-${type}-${Date.now()}`}
-              className='font-rajdhani uppercase font-bold tracking-wide h-3/4 w-[6em] text-[0.75em] text-center rounded '
+              className='font-rajdhani uppercase font-bold tracking-wide h-3/4 w-[6em] text-[0.75em] text-center rounded'
               style={{ backgroundColor: TYPE_COLORS[type] }}
             >
               {type}
