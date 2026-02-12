@@ -1,6 +1,6 @@
 # Pokémon Battle Arena
 > [!NOTE]
-> Last updated February 5, 2026
+> Last updated February 12, 2026
 
 ## Summary
 Experience classic turn-based battles in this interactive Pokémon battle simulator with a sleek, animated interface.
