@@ -14,7 +14,7 @@ const colorStyles: Record<Colors, string> = {
   default: 'to-slate-500 border-slate-600',
   blue: 'to-blue-600 border-blue-700',
   red: 'to-red-600 border-red-700',
-  yellow: 'to-yellow-600 border-yellow-700',
+  yellow: 'to-yellow-500 border-yellow-600',
   black: 'to-slate-900 border-slate-950'
 };
 
@@ -28,14 +28,14 @@ export default function Button({ text, color = 'default', size = 'md', onClick }
       <button
         className={clsx(
           'relative overflow-hidden w-full text-xl border shadow rounded-2xl transition-all duration-400',
-          'backdrop-blur-lg bg-gradient-to-r from-transparent to-70%',
+          'backdrop-blur-lg bg-gradient-to-br from-transparent to-70%',
           colorStyles[color],
           sizeStyles[size]
         )}
 				onClick={onClick}
       >
-        <span className='absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-100/30'></span>
-				<span className='uppercase'>{text}</span>
+        <span className='absolute inset-0 bg-gradient-to-t from-slate-950/10 via-transparent to-slate-100/50'></span>
+				<p className='uppercase'>{text}</p>
       </button>
     );
 }

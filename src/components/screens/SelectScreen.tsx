@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import clsx from "clsx";
 import { 
-	POKEMON_ROSTER, 
-	RESIZED_GRID_POKEMON, 
-	RESIZED_PLAYER_POKEMON, 
-	URL 
+	POKEMON_ROSTER,
+	RESIZED_CHOSEN_POKEMON,
+	RESIZED_GRID_POKEMON,
+	URL
 } from "../../utils/constants";
 import LoadingSpinner from "../common/LoadingSpinner";
 import { GameContext } from "../../context/GameContext";
@@ -33,23 +33,45 @@ export default function SelectScreen() {
 						return {
 							id: data.id,
 							name: data.name,
+							level: 50,
 							sprites: {
 								default: data.sprites.other.home.front_default,
 								animated_back: data.sprites.other.showdown.back_default,
 								animated_front: data.sprites.other.showdown.front_default
-							}
+							},
+							stats: {
+								hp: calculateStat(data.stats[0].base_stat, 'hp'),
+								maxHP: calculateStat(data.stats[0].base_stat, 'hp'),
+								attack: calculateStat(data.stats[1].base_stat),
+								defense: calculateStat(data.stats[2].base_stat),
+								spAttack: calculateStat(data.stats[3].base_stat),
+								spDefense: calculateStat(data.stats[4].base_stat),
+								speed: calculateStat(data.stats[5].base_stat)
+							},
+							types: data.types.map((t: { slot: number, type: { name: string, url: string }}) => t.type.name)
 						};
 					})
 				);
 
 				const randomPokemon: Pokemon = {
 					id: 0,
+					level: 0,
 					name: 'random',
 					sprites: {
 						default: 'src/assets/images/random.png',
 						animated_back: '',
 						animated_front: ''
-					}
+					},
+					stats: {
+						hp: 0,
+						maxHP: 0,
+						attack: 0,
+						defense: 0,
+						spAttack: 0,
+						spDefense: 0,
+						speed: 0
+					},
+					types: []
 				};
 
 				setAllPokemon([randomPokemon, ...pokemonData]);
@@ -59,6 +81,11 @@ export default function SelectScreen() {
 		};
 		getAllPokemon();
 	}, []);
+
+	const calculateStat = (base_stat: number, stat?: string) => {
+		if (stat === 'hp') return Math.floor((2 * base_stat * 50) / 100) + 50 + 10;
+		return Math.floor(((2 * base_stat * 50) / 100) + 5);
+	}
 
 	const handlePlayerChoice = (pokemon: Pokemon): void => {
 		if (playerPokemon?.id === pokemon.id) {
@@ -112,8 +139,8 @@ export default function SelectScreen() {
 						alt={`${(hoveredPlayerPokemon || playerPokemon)?.name}`} 
 						className={clsx(
 							'w-full justify-self-center',
-							playerPokemon && RESIZED_PLAYER_POKEMON[playerPokemon.name],
-							hoveredPlayerPokemon && RESIZED_PLAYER_POKEMON[hoveredPlayerPokemon.name]
+							playerPokemon && RESIZED_CHOSEN_POKEMON[playerPokemon.name],
+							hoveredPlayerPokemon && RESIZED_CHOSEN_POKEMON[hoveredPlayerPokemon.name]
 						)} 
 					/>
 				}
@@ -128,8 +155,8 @@ export default function SelectScreen() {
 						className={clsx(
 							'w-full justify-self-center',
 							(hoveredCPUPokemon?.name !== 'random' && cpuPokemon?.name !== 'random') && 'scale-x-[-1]',
-							cpuPokemon && RESIZED_PLAYER_POKEMON[cpuPokemon.name],
-							hoveredCPUPokemon && RESIZED_PLAYER_POKEMON[hoveredCPUPokemon.name]
+							cpuPokemon && RESIZED_CHOSEN_POKEMON[cpuPokemon.name],
+							hoveredCPUPokemon && RESIZED_CHOSEN_POKEMON[hoveredCPUPokemon.name]
 						)} 
 					/>
 				}
@@ -166,7 +193,7 @@ export default function SelectScreen() {
 				
 				{/* BUTTONS */}
 				<div className='flex items-center justify-center gap-4'>
-					<Button text='← Back' onClick={() => navigate(-1)} />
+					<Button text='← Back' onClick={() => navigate('/')} />
 					{playerPokemon && cpuPokemon ? 
 						<Button text='Battle!' color='blue' onClick={startBattle} />
 						:

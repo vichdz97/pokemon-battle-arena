@@ -3,6 +3,8 @@ import { GameContext } from "../../context/GameContext";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../common/LoadingSpinner";
 import Button from "../common/Button";
+import Pokebox from "../battle/Pokebox";
+import PokemonSprite from "../battle/PokemonSprite";
 
 export default function BattleScreen() {
 	const navigate = useNavigate();
@@ -22,22 +24,22 @@ export default function BattleScreen() {
 				backgroundSize: 'cover',
 			}}
 		>
-			<div className='h-screen grid grid-cols-2 grid-rows-2 flex items-center justify-evenly'>
+			<div className='h-screen grid grid-cols-2 grid-rows-2 flex items-center justify-evenly p-6'>
 				{/* CPU */}
-				<div className='bg-blue-500/50 col-start-2 w-full h-full'>
-					<img src={cpu.sprites.animated_front} alt={`${cpu.name} front`} className='bg-slate-200' />
-					<p className=''>CPU: {cpu.name}</p>
+				<div className='col-start-2 w-full h-full relative'>
+					<Pokebox pokemon={cpu} isPlayer={false} className='absolute top-0 right-0' />
+					<PokemonSprite pokemon={cpu} isPlayer={false} className='absolute -bottom-30 left-1/4' />
 				</div>
 
 				{/* PLAYER */}
-				<div className='bg-green-500/50 w-full h-full'>
-					<img src={player.sprites.animated_back} alt={`${player.name} back`} className='' />
-					<p className=''>PLAYER: {player.name}</p>
+				<div className='w-full h-full relative'>
+					<Pokebox pokemon={player} isPlayer={true} className='absolute bottom-0 left-0' />
+					<PokemonSprite pokemon={player} isPlayer={true} className='absolute -top-15 right-1/4' />
 				</div>
 
 				{/* MENU */}
-				<div className=' w-full h-full relative'>
-					<div className='absolute bottom-0 right-0 w-1/2 font-orbitron font-bold tracking-widest space-y-2 p-6'>
+				<div className='w-full h-full relative'>
+					<div className='absolute bottom-0 right-0 min-w-xs w-1/2 font-orbitron font-bold tracking-widest space-y-2'>
 						<Button text='Fight' color='blue' size='lg' />
 						<Button text='Pokemon' color='red' size='lg' />
 						<Button text='Bag' color='yellow' size='lg' />
