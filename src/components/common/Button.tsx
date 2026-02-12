@@ -24,18 +24,18 @@ const sizeStyles: Record<Sizes, string> = {
 };
 
 export default function Button({ text, color = 'default', size = 'md', onClick }: ButtonProps) {
-    return (
-      <button
-        className={clsx(
-          'relative overflow-hidden w-full text-xl border shadow rounded-2xl transition-all duration-400',
-          'backdrop-blur-lg bg-gradient-to-br from-transparent to-70%',
-          colorStyles[color],
-          sizeStyles[size]
-        )}
-				onClick={onClick}
-      >
-        <span className='absolute inset-0 bg-gradient-to-t from-slate-950/10 via-transparent to-slate-100/50'></span>
-				<p className='uppercase'>{text}</p>
-      </button>
-    );
+  return (
+    <button
+      className={clsx(
+        'relative overflow-hidden w-full text-xl border-2 shadow rounded-2xl transition-all duration-400',
+        'backdrop-blur-lg bg-gradient-to-br from-transparent to-70%',
+        colorStyles[color],
+        sizeStyles[size]
+      )}
+      onClick={onClick}
+    >
+      <span className='absolute inset-0 bg-gradient-to-t from-slate-950/10 via-transparent to-slate-100/50'></span>
+      <p className='uppercase'>{text}</p>
+    </button>
+  );
 }

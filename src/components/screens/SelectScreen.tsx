@@ -33,6 +33,7 @@ export default function SelectScreen() {
 						return {
 							id: data.id,
 							name: data.name,
+							moves: data.moves.map((m: { move: { name: string }}) => m.move.name),
 							level: 50,
 							sprites: {
 								default: data.sprites.other.home.front_default,
@@ -48,7 +49,7 @@ export default function SelectScreen() {
 								spDefense: calculateStat(data.stats[4].base_stat),
 								speed: calculateStat(data.stats[5].base_stat)
 							},
-							types: data.types.map((t: { slot: number, type: { name: string, url: string }}) => t.type.name)
+							types: data.types.map((t: { type: { name: string }}) => t.type.name)
 						};
 					})
 				);
@@ -56,6 +57,7 @@ export default function SelectScreen() {
 				const randomPokemon: Pokemon = {
 					id: 0,
 					level: 0,
+					moves: [],
 					name: 'random',
 					sprites: {
 						default: 'src/assets/images/random.png',
@@ -82,7 +84,7 @@ export default function SelectScreen() {
 		getAllPokemon();
 	}, []);
 
-	const calculateStat = (base_stat: number, stat?: string) => {
+	const calculateStat = (base_stat: number, stat?: string): number => {
 		if (stat === 'hp') return Math.floor((2 * base_stat * 50) / 100) + 50 + 10;
 		return Math.floor(((2 * base_stat * 50) / 100) + 5);
 	}
@@ -115,7 +117,7 @@ export default function SelectScreen() {
 		}
 	}
 
-	const startBattle = () => {
+	const startBattle = (): void => {
 		setPlayer(playerPokemon);
 		setCPU(cpuPokemon);
 		navigate('/battle');
