@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { GameContext } from "../../context/GameContext";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../common/LoadingSpinner";
+import Button from "../common/Button";
 
 export default function BattleScreen() {
 	const navigate = useNavigate();
@@ -35,10 +36,14 @@ export default function BattleScreen() {
 				</div>
 
 				{/* MENU */}
-				<div className='bg-yellow-500/50 w-full h-full'>
-					<p>MENU</p>
+				<div className=' w-full h-full relative'>
+					<div className='absolute bottom-0 right-0 w-1/2 font-orbitron font-bold tracking-widest space-y-2 p-6'>
+						<Button text='Fight' color='blue' size='lg' />
+						<Button text='Pokemon' color='red' size='lg' />
+						<Button text='Bag' color='yellow' size='lg' />
+						<Button text='Run' color='default' size='lg' />
+					</div>
 				</div>
-
 			</div>
 		</div>
 	);

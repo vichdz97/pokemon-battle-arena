@@ -7,14 +7,15 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-type Colors = 'default' | 'blue' | 'red' | 'black';
+type Colors = 'default' | 'blue' | 'red' | 'yellow' | 'black';
 type Sizes = 'md' | 'lg';
 
 const colorStyles: Record<Colors, string> = {
-  default: 'bg-slate-500',
-  blue: 'bg-blue-600',
-  red: 'bg-red-600',
-  black: 'bg-slate-950'
+  default: 'to-slate-500 border-slate-600',
+  blue: 'to-blue-600 border-blue-700',
+  red: 'to-red-600 border-red-700',
+  yellow: 'to-yellow-600 border-yellow-700',
+  black: 'to-slate-900 border-slate-950'
 };
 
 const sizeStyles: Record<Sizes, string> = {
@@ -26,7 +27,8 @@ export default function Button({ text, color = 'default', size = 'md', onClick }
     return (
       <button
         className={clsx(
-          'relative overflow-hidden w-full text-xl border border-slate-900 shadow rounded-2xl transition-all duration-400',
+          'relative overflow-hidden w-full text-xl border shadow rounded-2xl transition-all duration-400',
+          'backdrop-blur-lg bg-gradient-to-r from-transparent to-70%',
           colorStyles[color],
           sizeStyles[size]
         )}
